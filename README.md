@@ -12,7 +12,7 @@ Talk to it. Hand it a goal. Watch a team of seven specialist agents plan, build,
 [![React](https://img.shields.io/badge/React-19-149eca?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss)](https://tailwindcss.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-a99bff.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-a99bff.svg)](LICENSE)
 
 ![Aria desktop](public/screenshots/00-desktop-clean.png)
 
@@ -242,7 +242,8 @@ PRs welcome! Adding an **app** is a two-step job: drop a component in `component
 
 ## 📄 License
 
-[MIT](LICENSE) — do anything you like, just keep the notice.
+[Apache License 2.0](LICENSE) — free to use, modify, and distribute, with an explicit patent
+grant and attribution requirements. Keep the notices.
 
 <div align="center">
 <br/>

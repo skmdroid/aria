@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "description": "Aria — the AI operating system in your browser. A macOS-style web desktop with a live multi-agent brain.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "ai",
     "agents",
