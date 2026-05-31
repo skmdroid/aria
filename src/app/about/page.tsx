@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AGENT_LIST } from "@/lib/agents";
 import Icon from "@/components/ui/Icon";
+import { asset } from "@/lib/env";
 
 export const metadata: Metadata = {
   title: "Aria — the AI operating system in your browser",
@@ -120,7 +121,7 @@ export default function About() {
 
         <div className="relative mx-auto mt-14 max-w-5xl">
           <img
-            src="/screenshots/00-desktop-clean.png"
+            src={asset("/screenshots/00-desktop-clean.png")}
             alt="Aria desktop"
             className="w-full rounded-2xl border border-line shadow-2xl"
           />
@@ -184,7 +185,7 @@ export default function About() {
         <div className="grid gap-4 md:grid-cols-3">
           {SHOTS.map((s) => (
             <figure key={s.src} className="overflow-hidden rounded-2xl border border-line">
-              <img src={s.src} alt={s.cap} className="w-full" />
+              <img src={asset(s.src)} alt={s.cap} className="w-full" />
               <figcaption className="border-t border-line px-4 py-2.5 text-[12px] text-text2">
                 {s.cap}
               </figcaption>

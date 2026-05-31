@@ -1,10 +1,39 @@
 import type { SearchResult, Tool, ToolResult } from "./types";
+import { IS_STATIC } from "@/lib/env";
 
-/** Low-level client call to the keyless search backend. */
+/** Direct, CORS-friendly Wikipedia search — used in the static build (no server). */
+async function wikipediaClient(query: string): Promise<{
+  results: SearchResult[];
+  source: string;
+}> {
+  const u = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
+    query,
+  )}&srlimit=6&format=json&origin=*`;
+  const r = await fetch(u);
+  if (!r.ok) return { results: [], source: "none" };
+  const d = await r.json();
+  const results: SearchResult[] = (d?.query?.search || []).map(
+    (x: { title: string; snippet: string }) => ({
+      title: x.title,
+      snippet: x.snippet.replace(/<[^>]+>/g, ""),
+      url: `https://en.wikipedia.org/wiki/${encodeURIComponent(x.title.replace(/ /g, "_"))}`,
+    }),
+  );
+  return { results, source: "wikipedia" };
+}
+
+/** Low-level client call to the search backend (server proxy, or direct on static). */
 export async function searchWeb(query: string): Promise<{
   results: SearchResult[];
   source: string;
 }> {
+  if (IS_STATIC) {
+    try {
+      return await wikipediaClient(query);
+    } catch {
+      return { results: [], source: "none" };
+    }
+  }
   try {
     const r = await fetch("/api/search", {
       method: "POST",
@@ -67,6 +96,12 @@ export const webSearchTool: Tool<{ query: string }> = {
  */
 export function generateImageUrl(prompt: string, seed = 1): string {
   const clean = prompt.replace(/\s+/g, " ").trim().slice(0, 240);
+  if (IS_STATIC) {
+    // no server proxy on static — go direct
+    return `https://image.pollinations.ai/prompt/${encodeURIComponent(
+      clean,
+    )}?width=512&height=512&nologo=true&model=turbo&seed=${seed}`;
+  }
   // routed through our same-origin proxy to avoid cross-origin image blocking
   return `/api/image?prompt=${encodeURIComponent(clean)}&seed=${seed}`;
 }

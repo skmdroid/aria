@@ -12,6 +12,7 @@ import {
   webgpuAvailable,
   type LoadProgress,
 } from "@/lib/runtime/localBrain";
+import { IS_STATIC } from "@/lib/env";
 
 const ACCENTS = ["#7c6cff", "#22d3ee", "#34d399", "#f472b6", "#f59e0b", "#fb7185"];
 
@@ -221,7 +222,9 @@ export default function Settings() {
                   ["local", "Local"],
                   ["api", "API key"],
                 ] as const
-              ).map(([k, label]) => (
+              )
+                .filter(([k]) => !IS_STATIC || k !== "api")
+                .map(([k, label]) => (
                 <button
                   key={k}
                   onClick={() => set({ brain: k, useReal: k === "api" })}
@@ -243,7 +246,7 @@ export default function Settings() {
             </Row>
           )}
           {s.brain === "local" && <LocalBrainPanel />}
-          {s.brain === "api" && (
+          {s.brain === "api" && !IS_STATIC && (
             <>
               <Row title="Provider">
                 <div className="flex gap-1 rounded-lg bg-white/5 p-0.5">
