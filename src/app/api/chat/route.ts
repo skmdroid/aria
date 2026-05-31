@@ -7,12 +7,19 @@ export const runtime = "edge";
  * persistent way — it's passed per-request from the browser and forwarded
  * straight to the chosen provider. Supports OpenAI and Anthropic.
  */
+interface Msg {
+  role: "user" | "assistant";
+  content: string;
+}
+
 interface Body {
   provider: "openai" | "anthropic";
   apiKey: string;
   model?: string;
   system: string;
   prompt: string;
+  /** optional prior turns for conversational memory */
+  history?: Msg[];
 }
 
 export async function POST(req: NextRequest) {
@@ -24,6 +31,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { provider, apiKey, system, prompt } = body;
+  const history = (body.history || []).slice(-10);
   if (!apiKey) {
     return NextResponse.json({ error: "Missing API key" }, { status: 400 });
   }
@@ -42,7 +50,7 @@ export async function POST(req: NextRequest) {
           model,
           max_tokens: 1024,
           system,
-          messages: [{ role: "user", content: prompt }],
+          messages: [...history, { role: "user", content: prompt }],
         }),
       });
       const data = await r.json();
@@ -71,6 +79,7 @@ export async function POST(req: NextRequest) {
         max_tokens: 1024,
         messages: [
           { role: "system", content: system },
+          ...history,
           { role: "user", content: prompt },
         ],
       }),

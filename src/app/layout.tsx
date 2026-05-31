@@ -30,6 +30,14 @@ export const metadata: Metadata = {
     description:
       "An open-source web OS with a live multi-agent brain. Talk to it. Watch agents collaborate.",
     type: "website",
+    images: ["/screenshots/00-desktop-clean.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aria — the AI operating system in your browser",
+    description:
+      "An open-source web OS with a live multi-agent brain. Talk to it. Watch agents collaborate.",
+    images: ["/screenshots/00-desktop-clean.png"],
   },
 };
 

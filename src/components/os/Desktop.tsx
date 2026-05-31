@@ -12,6 +12,7 @@ import WindowManager from "./WindowManager";
 import Spotlight from "./Spotlight";
 import ControlCenter from "./ControlCenter";
 import Notifications from "./Notifications";
+import VoiceOrb from "./VoiceOrb";
 
 export default function Desktop() {
   const [mounted, setMounted] = useState(false);
@@ -62,6 +63,7 @@ export default function Desktop() {
           <Spotlight />
           <ControlCenter />
           <Notifications />
+          <VoiceOrb />
           {/* spotlight hint, bottom-left */}
           {wins.length === 0 && !spotlightOpen && (
             <div className="pointer-events-none fixed bottom-24 left-6 z-0">

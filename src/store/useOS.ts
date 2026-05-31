@@ -47,6 +47,7 @@ interface OSState {
   controlCenterOpen: boolean;
   ariaMenuOpen: boolean;
   notifCenterOpen: boolean;
+  voiceMode: boolean;
   notifs: Notif[];
   settings: Settings;
 
@@ -64,6 +65,7 @@ interface OSState {
   setControlCenter: (b: boolean) => void;
   setAriaMenu: (b: boolean) => void;
   setNotifCenter: (b: boolean) => void;
+  setVoiceMode: (b: boolean) => void;
 
   notify: (n: Omit<Notif, "id" | "ts">) => void;
   dismissNotif: (id: string) => void;
@@ -104,6 +106,7 @@ export const useOS = create<OSState>()(
       controlCenterOpen: false,
       ariaMenuOpen: false,
       notifCenterOpen: false,
+      voiceMode: false,
       notifs: [],
       settings: DEFAULT_SETTINGS,
 
@@ -206,6 +209,7 @@ export const useOS = create<OSState>()(
       setAriaMenu: (b) => set({ ariaMenuOpen: b }),
       setNotifCenter: (b) =>
         set({ notifCenterOpen: b, controlCenterOpen: false }),
+      setVoiceMode: (b) => set({ voiceMode: b }),
 
       notify: (n) =>
         set((s) => ({

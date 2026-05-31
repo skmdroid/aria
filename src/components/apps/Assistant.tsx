@@ -26,6 +26,9 @@ export default function Assistant() {
   const sendChat = useAria((s) => s.sendChat);
   const clearChat = useAria((s) => s.clearChat);
   const voiceEnabled = useOS((s) => s.settings.voiceEnabled);
+  const setVoiceMode = useOS((s) => s.setVoiceMode);
+  const useReal = useOS((s) => s.settings.useReal && !!s.settings.apiKey);
+  const provider = useOS((s) => s.settings.apiProvider);
 
   const [input, setInput] = useState("");
   const [listening, setListening] = useState(false);
@@ -106,6 +109,30 @@ export default function Assistant() {
             )}
           </div>
         </div>
+        <span
+          className="flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px]"
+          style={{
+            background: useReal ? "#22d3ee22" : "#34d39922",
+            color: useReal ? "#22d3ee" : "#34d399",
+          }}
+          title={
+            useReal
+              ? `Live — your messages go to ${provider} with your key`
+              : "On-device — nothing leaves your browser"
+          }
+        >
+          <Icon name={useReal ? "Globe" : "ShieldCheck"} size={11} />
+          {useReal ? "Live" : "On-device"}
+        </span>
+        {recognitionSupported() && (
+          <button
+            onClick={() => setVoiceMode(true)}
+            className="rounded-lg p-1.5 text-accent2 hover:bg-white/10"
+            title="Voice mode"
+          >
+            <Icon name="AudioLines" size={16} />
+          </button>
+        )}
         <button
           onClick={() => {
             stopSpeaking();

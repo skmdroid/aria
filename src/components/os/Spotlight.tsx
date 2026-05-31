@@ -68,6 +68,14 @@ export default function Spotlight() {
 
     const cmds: Result[] = [
       {
+        id: "cmd-voicemode",
+        label: "Voice Mode",
+        sub: "Talk to Aria hands-free",
+        icon: "AudioLines",
+        color: "#7c6cff",
+        run: () => useOS.getState().setVoiceMode(true),
+      },
+      {
         id: "cmd-voice",
         label: settings.voiceEnabled ? "Mute Aria's voice" : "Enable Aria's voice",
         sub: "System",

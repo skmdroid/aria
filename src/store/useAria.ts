@@ -13,6 +13,7 @@ import type {
 } from "@/lib/types";
 import { AGENTS } from "@/lib/agents";
 import {
+  extractName,
   isMission,
   planMission,
   simulateOutput,
@@ -57,6 +58,7 @@ interface AriaState {
   activeMissionId: string | null;
   tokens: number;
   busy: boolean;
+  memory: { name?: string };
 
   sendChat: (text: string, spoken?: boolean) => Promise<void>;
   runMission: (prompt: string) => Promise<string>;
@@ -95,6 +97,7 @@ export const useAria = create<AriaState>()(
       activeMissionId: null,
       tokens: 0,
       busy: false,
+      memory: {},
 
       clearChat: () =>
         set({
@@ -148,6 +151,10 @@ export const useAria = create<AriaState>()(
         const trimmed = text.trim();
         if (!trimmed || get().busy) return;
         const os = useOS.getState();
+
+        // lightweight memory: remember a name the user shares
+        const captured = extractName(trimmed);
+        if (captured) set((s) => ({ memory: { ...s.memory, name: captured } }));
 
         const userMsg: ChatMessage = {
           id: nanoid(8),
@@ -220,24 +227,46 @@ export const useAria = create<AriaState>()(
           return;
         }
 
-        // plain conversational reply
+        // plain conversational reply — now with memory + context
+        const ctx = {
+          name: get().memory.name,
+          lastMissionTitle: get().missions[0]?.title,
+          missionsCount: get().missions.length,
+          filesCount: get().files.length,
+        };
+        const history = get()
+          .chat.filter(
+            (m) => m.id !== ariaMsg.id && m.id !== userMsg.id && !!m.text,
+          )
+          .slice(-8)
+          .map((m) => ({
+            role: (m.role === "user" ? "user" : "assistant") as
+              | "user"
+              | "assistant",
+            content: m.text,
+          }));
+
         let reply: string;
         if (os.settings.useReal && os.settings.apiKey) {
           try {
+            const sys = `You are Aria, a warm, concise AI operating system assistant with a team of agents. Reply in 1-3 sentences.${
+              ctx.name ? ` The user's name is ${ctx.name}.` : ""
+            }`;
             reply = await callReal(
               {
                 provider: os.settings.apiProvider,
                 apiKey: os.settings.apiKey,
                 model: os.settings.apiModel || undefined,
               },
-              "You are Aria, a warm, concise AI operating system assistant. Reply in 1-3 sentences.",
+              sys,
               trimmed,
+              history,
             );
           } catch {
-            reply = smallTalk(trimmed);
+            reply = smallTalk(trimmed, ctx);
           }
         } else {
-          reply = smallTalk(trimmed);
+          reply = smallTalk(trimmed, ctx);
         }
         await typeStream(reply, patchAria);
         finishAria();
@@ -405,7 +434,11 @@ export const useAria = create<AriaState>()(
     {
       name: "aria-data",
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ files: s.files, missions: s.missions }),
+      partialize: (s) => ({
+        files: s.files,
+        missions: s.missions,
+        memory: s.memory,
+      }),
     },
   ),
 );

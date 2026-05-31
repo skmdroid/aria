@@ -41,7 +41,9 @@ UI lights up with a live LLM.
 | 🧠 **Live multi-agent missions** | A real orchestrator decomposes goals and routes work to 7 specialists, streaming their output, agent-to-agent chatter, and a flowing pipeline. |
 | 🖥️ **A genuine desktop** | Animated boot → wallpaper → menu bar → magnifying dock → draggable, resizable windows with traffic lights, minimize & maximize. |
 | 🔍 **Spotlight (⌘K)** | Fuzzy-search apps, run system commands, or *ask Aria anything* — dispatching a full mission from one keystroke. |
-| 🗣️ **Aria speaks & listens** | Web-Speech voice: tap the mic to talk, and Aria talks back. Modality-aware and fully toggleable. |
+| 🗣️ **Voice Mode** | A hands-free JARVIS-style orb that listens continuously, transcribes you live, speaks back, and auto re-listens for natural back-and-forth. |
+| 🧩 **Real memory** | Aria remembers your name and your last mission, and threads conversation history into every reply — in both simulated and real-LLM modes. |
+| 🔒 **Clear data story** | A visible badge everywhere: *on-device* (nothing leaves your browser) vs *live* (sent to your provider with your key, never to us). |
 | 📊 **Live dashboard** | Real-time throughput charts, agent utilization, success ring, token usage — all wired to your actual session. |
 | 🖧 **Agent shell** | A real terminal (`run`, `ask`, `agents`, `cat`, `neofetch`…) that drives the same engine. |
 | 🔌 **Bring your own key** | Simulated by default; flip one switch to run on OpenAI or Anthropic. Your key stays in your browser. |
@@ -79,6 +81,13 @@ Watch the plan stream in: Atlas briefs the team, specialists work in parallel, E
 
 ### Terminal — drive the agents from a shell
 ![Terminal](public/screenshots/05-terminal.png)
+
+### Voice Mode — talk to Aria hands-free
+A continuous listen → transcribe → speak loop. Tap the orb (or ⌘K → "Voice Mode").
+![Voice Mode](public/screenshots/10-voice.png)
+
+### Memory — Aria remembers you
+![Memory](public/screenshots/09-memory.png)
 
 ### Spotlight — search, command, or ask Aria
 ![Spotlight](public/screenshots/07-spotlight.png)

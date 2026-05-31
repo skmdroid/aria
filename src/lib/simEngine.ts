@@ -297,18 +297,54 @@ export function synthesize(prompt: string): string {
   ].join("\n");
 }
 
-/** Short conversational replies for plain chat (no mission). */
-export function smallTalk(prompt: string): string {
+export interface ChatContext {
+  name?: string;
+  lastMissionTitle?: string;
+  missionsCount?: number;
+  filesCount?: number;
+}
+
+/** Try to extract a name the user just told us. */
+export function extractName(prompt: string): string | undefined {
+  const m = prompt.match(
+    /\b(?:my name is|i am|i'm|call me|this is)\s+([A-Z][a-zA-Z]{1,20})\b/i,
+  );
+  if (!m) return undefined;
+  const n = m[1];
+  // avoid false positives like "i'm good", "i'm here"
+  if (/^(good|fine|here|done|back|ready|okay|ok|sorry|trying)$/i.test(n))
+    return undefined;
+  return n.charAt(0).toUpperCase() + n.slice(1);
+}
+
+/** Short conversational replies for plain chat (no mission), now context-aware. */
+export function smallTalk(prompt: string, ctx: ChatContext = {}): string {
   const p = prompt.toLowerCase();
+  const who = ctx.name ? `, ${ctx.name}` : "";
+
+  const justGaveName = extractName(prompt);
+  if (justGaveName)
+    return `Nice to meet you, ${justGaveName}. I'll remember that. Give me a goal and I'll put the whole team on it — try “research the best note-taking apps” or “build me a landing page”.`;
+
+  if (/\b(what('| i)?s my name|who am i|do you remember me|my name)\b/.test(p))
+    return ctx.name
+      ? `You're ${ctx.name} — of course I remember. What are we building?`
+      : "You haven't told me your name yet — say “I'm …” and I'll remember it.";
+
+  if (/\b(what did|recap|summar|last mission|what have we|earlier)\b/.test(p))
+    return ctx.lastMissionTitle
+      ? `Most recently the team worked on **${ctx.lastMissionTitle}**. The full breakdown and ${ctx.filesCount || 0} artifact(s) are saved in **Files** — want me to build on it?`
+      : "We haven't run a mission yet this session. Give me a goal and I'll dispatch the team.";
+
   if (/\b(hi|hello|hey|yo|good morning|good evening)\b/.test(p))
-    return "Hey — I'm Aria. Give me a mission and I'll put the whole team on it. Try “research the best note-taking apps” or “build me a landing page”.";
+    return `Hey${who} — I'm Aria. Give me a mission and I'll put the whole team on it. Try “research the best note-taking apps” or “build me a landing page”.`;
   if (/\b(who are you|what are you|what can you do)\b/.test(p))
     return "I'm Aria, an AI operating system. I run a team of seven specialist agents — Atlas plans, Sage researches, Forge codes, Quill writes, Iris designs, Ledger analyzes, and Echo reviews. Hand me anything and watch them collaborate live in the Agents app.";
   if (/\b(thanks|thank you|nice|cool|awesome|great)\b/.test(p))
-    return "Anytime. The team's standing by whenever you've got the next one. ✨";
-  if (/\b(help|how|what should)\b/.test(p))
-    return "Open Spotlight (⌘K) to jump anywhere, hit the mic to talk to me, or just type a goal. The bigger and messier the ask, the more the team shines.";
-  return "Got it. If you want the agents to actually work on that, phrase it as a goal — like “research…”, “build…”, “write…”, or “design…” — and I'll dispatch the team.";
+    return `Anytime${who}. The team's standing by whenever you've got the next one. ✨`;
+  if (/\b(help|how do|what should)\b/.test(p))
+    return "Open Spotlight (⌘K) to jump anywhere, tap the mic to talk to me, or just type a goal. The bigger and messier the ask, the more the team shines.";
+  return `Got it${who}. If you want the agents to actually work on that, phrase it as a goal — like “research…”, “build…”, “write…”, or “design…” — and I'll dispatch the team.`;
 }
 
 /** Heuristic: does this message deserve a full agent mission, or just a reply? */

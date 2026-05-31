@@ -73,6 +73,17 @@ export default function ControlCenter() {
           >
             <div className="grid grid-cols-2 gap-2">
               <Tile
+                onClick={() => {
+                  setOpen(false);
+                  useOS.getState().setVoiceMode(true);
+                }}
+                icon="AudioLines"
+                label="Voice Mode"
+                sub="Hands-free"
+                color="#7c6cff"
+                wide
+              />
+              <Tile
                 active={settings.voiceEnabled}
                 onClick={() => setSettings({ voiceEnabled: !settings.voiceEnabled })}
                 icon={settings.voiceEnabled ? "Volume2" : "VolumeX"}

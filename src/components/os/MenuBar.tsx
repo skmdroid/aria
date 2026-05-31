@@ -97,6 +97,14 @@ export default function MenuBar() {
                   setAriaMenu(false);
                 }}
               />
+              <MenuItem
+                label="Voice Mode"
+                icon="AudioLines"
+                onClick={() => {
+                  useOS.getState().setVoiceMode(true);
+                  setAriaMenu(false);
+                }}
+              />
               <div className="my-1 h-px bg-line" />
               <MenuItem
                 label={settings.voiceEnabled ? "Mute Aria's voice" : "Enable voice"}
@@ -136,6 +144,13 @@ export default function MenuBar() {
             {working > 0 ? `${working} agent${working > 1 ? "s" : ""} working` : "thinking"}
           </div>
         )}
+        <button
+          onClick={() => useOS.getState().setVoiceMode(true)}
+          className="rounded-md p-1 text-accent2 hover:bg-white/10"
+          title="Voice mode"
+        >
+          <Icon name="AudioLines" size={15} />
+        </button>
         <button
           onClick={() => openApp("assistant")}
           className="rounded-md p-1 hover:bg-white/10"
