@@ -7,6 +7,7 @@
 Aria is an open-source, **macOS-style web desktop** with a built-in **multi-agent brain**.
 Talk to it. Hand it a goal. Watch a team of seven specialist agents plan, build, and review it — live.
 
+[![CI](https://github.com/skmdroid/aria/actions/workflows/ci.yml/badge.svg)](https://github.com/skmdroid/aria/actions/workflows/ci.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-149eca?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)](https://www.typescriptlang.org)
@@ -122,7 +123,7 @@ A continuous listen → transcribe → speak loop. Tap the orb (or ⌘K → "Voi
 ## 🚀 Quick start
 
 ```bash
-git clone https://github.com/your-username/aria.git
+git clone https://github.com/skmdroid/aria.git
 cd aria
 npm install
 npm run dev
@@ -214,6 +215,13 @@ only the text source changes.
 - [ ] Shareable mission permalinks
 
 ---
+
+## ✅ Quality
+
+- **Typed** end-to-end (strict TypeScript).
+- **Tested** — unit tests (Vitest) for the planner, memory, and tool layer: `npm test`.
+- **CI** — GitHub Actions runs lint + test + build on every push and PR.
+- **Documented** — [ARCHITECTURE.md](ARCHITECTURE.md) + decision records in [`docs/adr/`](docs/adr).
 
 ## 🤝 Contributing
 

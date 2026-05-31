@@ -381,10 +381,10 @@ export const useAria = create<AriaState>()(
                 `Mission: ${prompt}\n\nYour subtask: ${task.title}\nRespond as ${ag.name} (${ag.role}).`,
               );
             } catch {
-              full = simulateOutput(task.agentId, prompt, task.title);
+              full = simulateOutput(task.agentId, prompt);
             }
           } else {
-            full = simulateOutput(task.agentId, prompt, task.title);
+            full = simulateOutput(task.agentId, prompt);
           }
 
           // Real tool use: Forge actually RUNS the JS it writes.

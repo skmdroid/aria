@@ -127,11 +127,7 @@ function keywords(prompt: string): string {
 }
 
 /** Generate believable, prompt-aware output for a given agent + subtask. */
-export function simulateOutput(
-  agentId: AgentId,
-  prompt: string,
-  title: string,
-): string {
+export function simulateOutput(agentId: AgentId, prompt: string): string {
   const kw = keywords(prompt);
   const subject = shortTitle(prompt).replace(/[.…]+$/, "");
 

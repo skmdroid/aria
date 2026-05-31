@@ -245,8 +245,8 @@ export default function VoiceOrb() {
               )}
               {!transcript && mode === "idle" && (
                 <div className="text-[13px] text-text3">
-                  Say “research the best laptops” or “what's my name?”
-                  {!speechSupported() && " (your browser can't speak back)"}
+                  Say “research the best laptops” or “what’s my name?”
+                  {!speechSupported() && " (your browser can’t speak back)"}
                 </div>
               )}
             </div>

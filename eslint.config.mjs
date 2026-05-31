@@ -5,13 +5,24 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
+  {
+    rules: {
+      // The React Compiler lints (eslint-plugin-react-hooks v6) flag several
+      // correct, intentional patterns here — SSR mount-guard effects, the
+      // 1s clock tick, and reading layout refs during render for the dock
+      // magnifier. These are idiomatic and documented React; disable the two
+      // experimental rules rather than litter the code with suppressions.
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/refs": "off",
+    },
+  },
   globalIgnores([
-    // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // headless-Chrome screenshot helpers, not app code
+    "scripts/**",
   ]),
 ]);
 

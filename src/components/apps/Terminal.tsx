@@ -24,7 +24,7 @@ export default function Terminal() {
   ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
-  const [hIdx, setHIdx] = useState(-1);
+  const [, setHIdx] = useState(-1);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 

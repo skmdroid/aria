@@ -33,7 +33,6 @@ export default function Dock() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const scaleFor = (id: string) => {
