@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { useOS } from "@/store/useOS";
 import Wallpaper from "./Wallpaper";
 import Boot from "./Boot";
+import DesktopWidgets from "./DesktopWidgets";
 import MenuBar from "./MenuBar";
 import Dock from "./Dock";
 import WindowManager from "./WindowManager";
@@ -19,7 +20,6 @@ export default function Desktop() {
   const spotlightOpen = useOS((s) => s.spotlightOpen);
   const setSpotlight = useOS((s) => s.setSpotlight);
   const wins = useOS((s) => s.wins);
-  const openApp = useOS((s) => s.openApp);
 
   useEffect(() => setMounted(true), []);
 
@@ -47,16 +47,6 @@ export default function Desktop() {
     return () => window.removeEventListener("keydown", h);
   }, [setSpotlight]);
 
-  // open the assistant once after first boot so the OS never feels empty
-  const firstOpenDone = useOS.getState().wins.length > 0;
-  useEffect(() => {
-    if (booted && !firstOpenDone && wins.length === 0) {
-      const t = setTimeout(() => openApp("assistant"), 400);
-      return () => clearTimeout(t);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [booted]);
-
   if (!mounted) return <div className="fixed inset-0 bg-bg0" />;
 
   return (
@@ -65,21 +55,20 @@ export default function Desktop() {
       <AnimatePresence>{!booted && <Boot key="boot" />}</AnimatePresence>
       {booted && (
         <>
+          <DesktopWidgets />
           <MenuBar />
           <WindowManager />
           <Dock />
           <Spotlight />
           <ControlCenter />
           <Notifications />
-          {/* hint chip */}
+          {/* spotlight hint, bottom-left */}
           {wins.length === 0 && !spotlightOpen && (
-            <div className="pointer-events-none fixed inset-0 grid place-items-center">
-              <div className="text-center">
-                <div className="text-[13px] text-text2">
-                  Press{" "}
-                  <kbd className="rounded bg-white/10 px-1.5 py-0.5 text-[11px]">⌘K</kbd>{" "}
-                  for Spotlight, or pick an app from the dock
-                </div>
+            <div className="pointer-events-none fixed bottom-24 left-6 z-0">
+              <div className="flex items-center gap-2 text-[12px] text-text2">
+                Press{" "}
+                <kbd className="rounded bg-white/10 px-1.5 py-0.5 text-[11px]">⌘K</kbd>{" "}
+                for Spotlight
               </div>
             </div>
           )}

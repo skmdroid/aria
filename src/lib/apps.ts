@@ -30,10 +30,10 @@ export const APPS: AppMeta[] = [
     name: "Aria",
     icon: "Sparkles",
     color: "#7c6cff",
-    w: 460,
-    h: 640,
-    minW: 360,
-    minH: 420,
+    w: 520,
+    h: 680,
+    minW: 380,
+    minH: 460,
     dock: true,
   },
   {
@@ -41,10 +41,10 @@ export const APPS: AppMeta[] = [
     name: "Agents",
     icon: "Network",
     color: "#22d3ee",
-    w: 920,
-    h: 620,
-    minW: 640,
-    minH: 440,
+    w: 980,
+    h: 660,
+    minW: 660,
+    minH: 460,
     dock: true,
   },
   {
@@ -52,10 +52,10 @@ export const APPS: AppMeta[] = [
     name: "Dashboard",
     icon: "LayoutDashboard",
     color: "#34d399",
-    w: 840,
-    h: 580,
-    minW: 560,
-    minH: 420,
+    w: 900,
+    h: 620,
+    minW: 600,
+    minH: 440,
     dock: true,
   },
   {
@@ -63,10 +63,10 @@ export const APPS: AppMeta[] = [
     name: "Terminal",
     icon: "SquareTerminal",
     color: "#f59e0b",
-    w: 680,
-    h: 460,
-    minW: 420,
-    minH: 280,
+    w: 780,
+    h: 500,
+    minW: 460,
+    minH: 300,
     dock: true,
   },
   {
@@ -74,10 +74,10 @@ export const APPS: AppMeta[] = [
     name: "Files",
     icon: "FolderOpen",
     color: "#60a5fa",
-    w: 760,
-    h: 520,
-    minW: 480,
-    minH: 360,
+    w: 840,
+    h: 580,
+    minW: 520,
+    minH: 380,
     dock: true,
   },
   {
@@ -85,21 +85,21 @@ export const APPS: AppMeta[] = [
     name: "Notes",
     icon: "StickyNote",
     color: "#fbbf24",
-    w: 560,
-    h: 520,
-    minW: 360,
-    minH: 320,
+    w: 660,
+    h: 580,
+    minW: 400,
+    minH: 340,
     dock: true,
   },
   {
     id: "settings",
     name: "Settings",
     icon: "Settings",
-    color: "#8b93a7",
-    w: 620,
-    h: 560,
-    minW: 460,
-    minH: 400,
+    color: "#9aa3b8",
+    w: 720,
+    h: 640,
+    minW: 480,
+    minH: 420,
     dock: true,
   },
 ];
@@ -108,12 +108,36 @@ export const APP_MAP: Record<AppId, AppMeta> = Object.fromEntries(
   APPS.map((a) => [a.id, a]),
 ) as Record<AppId, AppMeta>;
 
+/**
+ * Vibrant mesh-gradient wallpapers — saturated like macOS Sonoma/Sequoia but
+ * tuned dark enough that glass windows stay readable on top.
+ */
 export const WALLPAPERS = [
-  { id: "aurora", name: "Aurora", css: "radial-gradient(120% 120% at 20% 0%, #1b1146 0%, #0a0c14 45%, #05060a 100%)" },
-  { id: "nebula", name: "Nebula", css: "radial-gradient(100% 100% at 80% 10%, #0d2a3a 0%, #0a0c14 50%, #05060a 100%)" },
-  { id: "ember", name: "Ember", css: "radial-gradient(120% 120% at 30% 100%, #3a1428 0%, #120a14 50%, #05060a 100%)" },
-  { id: "forest", name: "Forest", css: "radial-gradient(120% 120% at 70% 20%, #0c2a1f 0%, #0a1410 50%, #05060a 100%)" },
-  { id: "void", name: "Void", css: "radial-gradient(140% 140% at 50% 30%, #0e1020 0%, #070810 55%, #04040a 100%)" },
+  {
+    id: "aurora",
+    name: "Aurora",
+    css: `radial-gradient(60% 85% at 12% 8%, #5b2a9d 0%, transparent 58%), radial-gradient(55% 75% at 88% 12%, #2058d6 0%, transparent 55%), radial-gradient(65% 65% at 78% 88%, #c0297a 0%, transparent 52%), radial-gradient(70% 70% at 8% 92%, #0e8aa8 0%, transparent 52%), linear-gradient(165deg, #0d0a1f, #07060f)`,
+  },
+  {
+    id: "sunset",
+    name: "Sunset",
+    css: `radial-gradient(60% 80% at 18% 12%, #7c2d63 0%, transparent 55%), radial-gradient(60% 70% at 85% 20%, #d4572a 0%, transparent 52%), radial-gradient(70% 70% at 70% 92%, #8b2fbd 0%, transparent 55%), radial-gradient(60% 60% at 6% 88%, #b83a5a 0%, transparent 50%), linear-gradient(165deg, #160a14, #0a0610)`,
+  },
+  {
+    id: "ocean",
+    name: "Ocean",
+    css: `radial-gradient(60% 80% at 15% 10%, #1e40af 0%, transparent 55%), radial-gradient(55% 70% at 85% 14%, #0e9ab0 0%, transparent 52%), radial-gradient(70% 70% at 75% 90%, #3b2a9d 0%, transparent 55%), radial-gradient(60% 60% at 8% 92%, #0d6e8c 0%, transparent 52%), linear-gradient(165deg, #07101f, #050a12)`,
+  },
+  {
+    id: "nebula",
+    name: "Nebula",
+    css: `radial-gradient(55% 75% at 20% 14%, #6d28d9 0%, transparent 55%), radial-gradient(55% 70% at 82% 10%, #be2a6b 0%, transparent 52%), radial-gradient(70% 70% at 78% 86%, #2563eb 0%, transparent 55%), radial-gradient(60% 65% at 6% 90%, #7c2da8 0%, transparent 52%), linear-gradient(165deg, #0e0a1c, #06050d)`,
+  },
+  {
+    id: "mint",
+    name: "Mint",
+    css: `radial-gradient(60% 80% at 16% 12%, #0f766e 0%, transparent 55%), radial-gradient(55% 70% at 86% 16%, #2563eb 0%, transparent 52%), radial-gradient(70% 70% at 74% 90%, #0d9488 0%, transparent 55%), radial-gradient(60% 60% at 8% 90%, #15803d 0%, transparent 50%), linear-gradient(165deg, #08130f, #050d0a)`,
+  },
 ] as const;
 
 export type WallpaperId = (typeof WALLPAPERS)[number]["id"];

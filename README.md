@@ -13,7 +13,7 @@ Talk to it. Hand it a goal. Watch a team of seven specialist agents plan, build,
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-a99bff.svg)](LICENSE)
 
-![Aria desktop](public/screenshots/02-desktop.png)
+![Aria desktop](public/screenshots/00-desktop-clean.png)
 
 </div>
 

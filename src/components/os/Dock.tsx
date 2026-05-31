@@ -6,9 +6,9 @@ import { APPS, type AppId } from "@/lib/apps";
 import { useOS } from "@/store/useOS";
 import Icon from "@/components/ui/Icon";
 
-const INFLUENCE = 110;
-const MAX_SCALE = 0.7;
-const BASE = 46;
+const INFLUENCE = 120;
+const MAX_SCALE = 0.8;
+const BASE = 52;
 
 export default function Dock() {
   const openApp = useOS((s) => s.openApp);

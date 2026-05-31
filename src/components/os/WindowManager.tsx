@@ -6,13 +6,19 @@ import Window from "./Window";
 
 export default function WindowManager() {
   const wins = useOS((s) => s.wins);
+  const visible = wins.filter((w) => !w.minimized);
+  const topId = visible.reduce<string | null>(
+    (top, w) =>
+      top === null || w.z > (visible.find((x) => x.id === top)?.z ?? -1)
+        ? w.id
+        : top,
+    null,
+  );
   return (
     <AnimatePresence>
-      {wins
-        .filter((w) => !w.minimized)
-        .map((w) => (
-          <Window key={w.id} win={w} />
-        ))}
+      {visible.map((w) => (
+        <Window key={w.id} win={w} active={w.id === topId} />
+      ))}
     </AnimatePresence>
   );
 }
