@@ -1,0 +1,10 @@
+import puppeteer from "puppeteer-core";
+const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const browser = await puppeteer.launch({ executablePath: CHROME, headless: "new", defaultViewport: { width: 1440, height: 900, deviceScaleFactor: 2 }, args: ["--no-sandbox", "--hide-scrollbars"] });
+const page = await browser.newPage();
+await page.goto("http://localhost:3000/about", { waitUntil: "networkidle2" });
+await sleep(2500);
+await page.screenshot({ path: "public/screenshots/20-landing.png" });
+console.log("hero shot");
+await browser.close();

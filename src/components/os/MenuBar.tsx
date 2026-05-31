@@ -84,7 +84,7 @@ export default function MenuBar() {
                 label="About Aria"
                 icon="Info"
                 onClick={() => {
-                  openApp("settings");
+                  window.open("/about", "_blank");
                   setAriaMenu(false);
                 }}
               />
