@@ -7,6 +7,9 @@
 Aria is an open-source, **macOS-style web desktop** with a built-in **multi-agent brain**.
 Talk to it. Hand it a goal. Watch a team of seven specialist agents plan, build, and review it — live.
 
+### ▶︎ [**Try the live demo → sumanthkm.com/aria**](https://sumanthkm.com/aria/)
+
+[![Live demo](https://img.shields.io/badge/demo-sumanthkm.com%2Faria-7c6cff)](https://sumanthkm.com/aria/)
 [![CI](https://github.com/skmdroid/aria/actions/workflows/ci.yml/badge.svg)](https://github.com/skmdroid/aria/actions/workflows/ci.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-149eca?logo=react)](https://react.dev)
